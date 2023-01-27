@@ -52,9 +52,17 @@ public class SMServer implements StateMachine {
     }
 
     @Override
+    public String toString() {
+        return "SMServer{" +
+                "a=" + a +
+                ", b=" + b +
+                '}';
+    }
+
+    @Override
     public double read(int variable) throws RemoteException {
         try{
-            Logger.getLogger(SMServer.class.getName()).log(Level.INFO, "Se ha procesado una solicitud de lectura de " + getClientHost());
+            Logger.getLogger(SMServer.class.getName()).log(Level.INFO, "Se ha procesado una solicitud de lectura de " + getClientHost() + "\n" + this.toString());
             return switch (variable) {
                 case 0 -> getA();
                 case 1 -> getB();
@@ -85,7 +93,7 @@ public class SMServer implements StateMachine {
                     }
                 }
             }
-            Logger.getLogger(SMServer.class.getName()).log(Level.INFO, "Se ha procesado una solicitud de actualización de " + getClientHost());
+            Logger.getLogger(SMServer.class.getName()).log(Level.INFO, "Se ha procesado una solicitud de actualización de " + getClientHost() + "\n" + this.toString());
             return true;
         } catch(Exception ex){
             Logger.getLogger(SMServer.class.getName()).log(Level.WARNING, "Error al procesar una soliticud de actualización.", ex);
