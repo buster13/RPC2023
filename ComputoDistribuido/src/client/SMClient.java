@@ -17,53 +17,70 @@ public class SMClient {
             Registry registry = LocateRegistry.getRegistry("localhost");
             StateMachine sm = (StateMachine) registry.lookup(name);
 
-
+            int var, op;
+            double nuevo, sumando, factor;
 
             while(true) {
                 System.out.println("Elije la variable: \n" +
                         "A... (0) \n" +
-                        "B ... (1) \n" );
-                int var= scan.nextInt();
+                        "B ... (1)" );
+                while(!scan.hasNextInt()){
+                    System.out.println("Ingresa un entero válido");
+                    scan.next();
+                }
+                var = scan.nextInt();
+
                 System.out.println("Elije la operación: \n" +
                         "Set ... (0) \n" +
                         "Add ... (1) \n" +
                         "Mult ... (2) \n" +
-                        "Get ... (3) \n"
+                        "Get ... (3)"
                 );
-                int op= scan.nextInt();
+                while(!scan.hasNextInt()){
+                    System.out.println("Ingresa un entero válido");
+                    scan.next();
+                }
+                op= scan.nextInt();
 
                 switch (op){
                     case(0):{
-                        System.out.println("Valor nuevo:" );
-                        double nuevo= scan.nextDouble();
-                        System.out.println(sm.update(var,op,nuevo));
+                        System.out.print("Valor nuevo:" );
+                        nuevo = scan.nextDouble();
+                        System.out.println("Respuesta del servidor: " + sm.update(var, op, nuevo));
                         break;
                     }
                     case(1):{
-                        System.out.println("Sumando:" );
-                        double sumando= scan.nextDouble();
-                        System.out.println(sm.update(var,op,sumando));
+                        System.out.print("Sumando:" );
+                        sumando = scan.nextDouble();
+                        System.out.println("Respuesta del servidor: " + sm.update(var, op, sumando));
                         break;
                     }
                     case(2):{
-                        System.out.println("Factor:" );
-                        double factor= scan.nextDouble();
-                        System.out.println(sm.update(var,op,factor));
+                        System.out.print("Factor:" );
+                        factor = scan.nextDouble();
+                        System.out.println("Respuesta del servidor: " + sm.update(var, op, factor));
                         break;
                     }
                     case(3):{
-                        System.out.println(sm.read(var));
+                        System.out.println("Respuesta del servidor: " + sm.read(var));
+                        break;
+                    }
+                    default: {
+                        System.out.println("Operación no soportada.");
                         break;
                     }
                 }
                 System.out.println("¿Deseas continuar? \n" +
                         "Si... (0) \n" +
-                        "No... (-1) \n" );
+                        "No... (-1)" );
+                while(!scan.hasNextInt()){
+                    System.out.println("Ingresa un entero válido");
+                    scan.next();
+                }
                 int cont= scan.nextInt();
                 if(cont == -1){
                     break;
                 }
-
             }
 
         } catch (Exception ex) {
