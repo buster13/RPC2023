@@ -1,6 +1,7 @@
 package client;
 
 import interfaces.StateMachine;
+import messages.Request;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -18,7 +19,7 @@ public class SMClient {
             StateMachine sm = (StateMachine) registry.lookup(name);
 
             int var, op;
-            double nuevo, sumando, factor;
+            double num = 0;
 
             while(true) {
                 System.out.println("Elije la variable: \n" +
@@ -43,33 +44,26 @@ public class SMClient {
                 op= scan.nextInt();
 
                 switch (op){
-                    case(0):{
-                        System.out.print("Valor nuevo:" );
-                        nuevo = scan.nextDouble();
-                        System.out.println("Respuesta del servidor: " + sm.update(var, op, nuevo));
-                        break;
-                    }
-                    case(1):{
-                        System.out.print("Sumando:" );
-                        sumando = scan.nextDouble();
-                        System.out.println("Respuesta del servidor: " + sm.update(var, op, sumando));
-                        break;
-                    }
+                    case(0):
+                    case(1):
                     case(2):{
-                        System.out.print("Factor:" );
-                        factor = scan.nextDouble();
-                        System.out.println("Respuesta del servidor: " + sm.update(var, op, factor));
-                        break;
-                    }
-                    case(3):{
-                        System.out.println("Respuesta del servidor: " + sm.read(var));
-                        break;
-                    }
-                    default: {
-                        System.out.println("Operación no soportada.");
+                        System.out.print("Valor nuevo: " );
+                        while(!scan.hasNextDouble()){
+                            System.out.println("Ingresa un número válido");
+                            scan.next();
+                        }
+                        num = scan.nextDouble();
                         break;
                     }
                 }
+
+                Request request = new Request(var, op, num);
+                if(op == 3){
+                    System.out.println(sm.read(request.toString()));
+                } else {
+                    System.out.println(sm.update(request.toString()));
+                }
+
                 System.out.println("¿Deseas continuar? \n" +
                         "Si... (0) \n" +
                         "No... (-1)" );
