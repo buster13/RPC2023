@@ -1,7 +1,7 @@
 package server;
 
 import interfaces.StateMachine;
-import messages.Response;
+import utils.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 

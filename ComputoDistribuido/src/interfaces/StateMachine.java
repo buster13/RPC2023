@@ -1,9 +1,5 @@
 package interfaces;
 
-import messages.Response;
-import org.json.JSONObject;
-
-import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

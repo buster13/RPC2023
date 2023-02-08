@@ -1,7 +1,7 @@
 package client;
 
 import interfaces.StateMachine;
-import messages.Request;
+import utils.Request;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
