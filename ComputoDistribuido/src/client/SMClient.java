@@ -1,6 +1,7 @@
 package client;
 
 import interfaces.StateMachine;
+import utils.AES;
 import utils.Request;
 
 import java.rmi.registry.LocateRegistry;
@@ -11,6 +12,7 @@ import java.util.Scanner;
 
 public class SMClient {
     public static void main(String[] args) {
+        String PASSWORD = "ThisIsNotThePassword";
         Scanner scan= new Scanner(System.in);
 
         try {
@@ -58,10 +60,11 @@ public class SMClient {
                 }
 
                 Request request = new Request(var, op, num);
+                String req = AES.encrypt(request.toString(), PASSWORD);
                 if(op == 3){
-                    System.out.println(sm.read(request.toString()));
+                    System.out.println(AES.decrypt(sm.read(req), PASSWORD));
                 } else {
-                    System.out.println(sm.update(request.toString()));
+                    System.out.println(AES.decrypt(sm.update(req), PASSWORD));
                 }
 
                 System.out.println("¿Deseas continuar? \n" +

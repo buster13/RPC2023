@@ -1,6 +1,7 @@
 package server;
 
 import interfaces.StateMachine;
+import utils.AES;
 import utils.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SMServer extends UnicastRemoteObject implements StateMachine {
+    private final String PASSWORD = "ThisIsNotThePassword";
     private double a;
     private double b;
 
@@ -61,6 +63,7 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
     @Override
     public String read(String json) throws RemoteException {
         Response resp;
+        json = AES.decrypt(json, this.PASSWORD);
         try{
             JSONObject request = new JSONObject(json);
             int variable = request.getInt("var");
@@ -83,12 +86,13 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
             Logger.getLogger(SMServer.class.getName()).log(Level.WARNING, "Error al procesar una soliticud de actualización.", jsEx);
             resp = new Response(-1, "false", jsEx.toString());
         }
-        return resp.toString();
+        return AES.encrypt(resp.toString(), this.PASSWORD);
     }
 
     @Override
     public String update(String json) throws RemoteException {
         Response resp;
+        json = AES.decrypt(json, this.PASSWORD);
         try{
             JSONObject request = new JSONObject(json);
             int variable = request.getInt("var");
@@ -126,7 +130,7 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
             Logger.getLogger(SMServer.class.getName()).log(Level.WARNING, "Error al procesar una soliticud de actualización.", jsEx);
             resp = new Response(-1, "false", jsEx.toString());
         }
-        return resp.toString();
+        return AES.encrypt(resp.toString(), this.PASSWORD);
     }
 
     public static void main(String[] args) {
