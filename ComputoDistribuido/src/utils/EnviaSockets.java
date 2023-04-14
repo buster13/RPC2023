@@ -54,4 +54,77 @@ public class EnviaSockets extends Thread {
 
     }
 
+    public void mandaRelease() throws IOException {
+        Nodo n;
+        for (int i = 0; i < nodos.size(); i++) {
+            n = nodos.get(i);
+            mandaReleaseANodo(n);
+        }
+    }
+
+    public void mandaReleaseANodo(Nodo node){
+        Socket socket;
+        DataOutputStream out;
+        String mensaje;
+        String target;
+        String action;
+        try {
+
+            socket = new Socket(node.getHost(), node.getPort());
+            out = new DataOutputStream(socket.getOutputStream());
+
+
+            //Mensaje a enviar
+            mensaje = "release";
+
+            System.out.println("Enviando mensaje a :"+node.getHost());
+            System.out.println("Mensaje a enviar: "+mensaje);
+            out.writeUTF(mensaje);
+            System.out.println("Mensaje enviado");
+            //in.close();
+            out.close();
+            socket.close();
+        } catch (Exception ex) {
+            //Logger.getLogger(ManejadorSockets.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.toString());
+        }
+
+    }
+
+    public void mandaAck(int id_sender){
+        Socket socket;
+        DataOutputStream out;
+        String mensaje;
+        String target;
+        String action;
+
+        Nodo node = nodos.get(0);
+        for (int i = 0; i < nodos.size(); i++) {
+            if(nodos.get(i).getId()==id_sender)
+                node = nodos.get(i);
+        }
+
+        try {
+
+            socket = new Socket(node.getHost(), node.getPort());
+            out = new DataOutputStream(socket.getOutputStream());
+
+
+            //Mensaje a enviar
+            mensaje = "acknowledge";
+
+            System.out.println("Enviando mensaje a :"+node.getHost());
+            System.out.println("Mensaje a enviar: "+mensaje);
+            out.writeUTF(mensaje);
+            System.out.println("Mensaje enviado");
+            //in.close();
+            out.close();
+            socket.close();
+        } catch (Exception ex) {
+            //Logger.getLogger(ManejadorSockets.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.toString());
+        }
+
+    }
+
 }

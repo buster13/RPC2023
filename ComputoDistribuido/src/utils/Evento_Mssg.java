@@ -35,6 +35,10 @@ public class Evento_Mssg implements Comparable<Evento_Mssg>{
         this.tiempo = tiempo;
     }
 
+    public int getId_sender() {
+        return id_sender;
+    }
+
     public int[] getPrioridad(){
         int[] prioridad = new int[2];
 

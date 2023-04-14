@@ -45,11 +45,11 @@ public class Escucha_Clientes extends Thread{
                     if(received.contains("release")){
                         System.out.println("Solicitud de release");
 
-                        //sacas el primer elemento de la cola
+                        Lamport.quita_Evento();
 
                     }else{
-                        if(received.contains("reply")){
-                            System.out.println("Solicitud de reply realizada");
+                        if(received.contains("acknowledge")){
+                            Lamport.aumenta_Received();
 
                         }else{
                             /*jsonObject = new JSONObject(received);
@@ -69,7 +69,6 @@ public class Escucha_Clientes extends Thread{
 
                             Lamport.agrega_Evento(evt);
 
-                            //Enviar mensaje de "ack"
 
                             //Agregar al LOG la instrucción recibida
 

@@ -64,18 +64,11 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
     @Override
     public String read(String json) throws RemoteException {
         Response resp;
-        json = AES.decrypt(json, this.PASSWORD);
+        //json = AES.decrypt(json, this.PASSWORD);
         try{
             JSONObject request = new JSONObject(json);
 
             int variable = request.getInt("var");
-
-            //Arma evento
-            Evento_Mssg evt = Lamport.arma_Evento(3, variable, 0);
-            //Lamport agrega
-            Lamport.agrega_Evento(evt);
-
-            //No debe de avanzar hasta que procese el evento local
 
             double num;
             switch (variable) {
@@ -95,8 +88,6 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
         } catch (JSONException jsEx){
             Logger.getLogger(SMServer.class.getName()).log(Level.WARNING, "Error al procesar una soliticud de actualización.", jsEx);
             resp = new Response(-1, "false", jsEx.toString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
         return AES.encrypt(resp.toString(), this.PASSWORD);
     }
@@ -104,19 +95,12 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
     @Override
     public String update(String json) throws RemoteException {
         Response resp;
-        json = AES.decrypt(json, this.PASSWORD);
+        //json = AES.decrypt(json, this.PASSWORD);
         try{
             JSONObject request = new JSONObject(json);
             int variable = request.getInt("var");
             int operation = request.getInt("oper");
             double value = request.getDouble("value");
-
-            //Arma evento
-            Evento_Mssg evt = Lamport.arma_Evento(operation, variable, value);
-            //Lamport agrega
-            Lamport.agrega_Evento(evt);
-
-            //No debe de avanzar hasta que procese el evento local
 
             switch (variable) {
                 case 0 -> {
@@ -148,10 +132,32 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
         } catch (JSONException jsEx){
             Logger.getLogger(SMServer.class.getName()).log(Level.WARNING, "Error al procesar una soliticud de actualización.", jsEx);
             resp = new Response(-1, "false", jsEx.toString());
+        }
+        return AES.encrypt(resp.toString(), this.PASSWORD);
+    }
+
+
+    //Quitar si no funciona intento A******
+
+    public String opera(String json) throws RemoteException{
+        Response resp;
+        json = AES.decrypt(json, this.PASSWORD);
+        try {
+            JSONObject request = new JSONObject(json);
+            int variable = request.getInt("var");
+            int operation = request.getInt("oper");
+            double value = request.getDouble("value");
+
+            //Arma evento
+            Evento_Mssg evt = Lamport.arma_Evento(operation, variable, value);
+            //Lamport agrega
+            Lamport.agrega_Evento(evt);
+
+            return Lamport.revisaEvento();
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return AES.encrypt(resp.toString(), this.PASSWORD);
     }
 
     public static void main(String[] args) {
@@ -167,6 +173,8 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
             //Manejador de sockets (extiende a Thread) para .start()
             ManejadorSockets_Serv servidor_Sockets = new ManejadorSockets_Serv();
             servidor_Sockets.run();
+
+            Lamport.initialize(3, engine);
 
         } catch (RemoteException ex) {
             Logger.getLogger(SMServer.class.getName()).log(Level.SEVERE, "Error al iniciar el servidor.", ex);
