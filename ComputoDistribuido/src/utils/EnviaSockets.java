@@ -32,8 +32,11 @@ public class EnviaSockets extends Thread {
         String target;
         String action;
         try {
-
+            System.out.println("llegue");
+            System.out.println(node.getHost());
+            System.out.println(node.getPort());
             socket = new Socket(node.getHost(), node.getPort());
+            System.out.println("llegue");
             out = new DataOutputStream(socket.getOutputStream());
 
 

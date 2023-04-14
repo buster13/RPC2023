@@ -42,6 +42,7 @@ public class Lamport {
             case 0: //local
                 evt.setTiempo( reloj + 1);
                 messages_queue.add(evt);
+                System.out.println("llegué aquí");
                 manejador.mandaInstrucciones(evt);
                 msg_recieved = 0;
                 break;
@@ -56,11 +57,11 @@ public class Lamport {
 
 
     public static String revisaEvento() throws IOException {
-        while(true){
-            if(msg_recieved == 2){
-                return quita_Evento();
-            }
-        }
+        int i = 0;
+        while(msg_recieved != 2){
+            System.out.print("");
+        };
+        return quita_Evento();
     }
 
  //sacar eventos de la cola y pedirle al SMServer que ejecute

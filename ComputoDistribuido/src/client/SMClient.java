@@ -62,9 +62,9 @@ public class SMClient {
                 Request request = new Request(var, op, num);
                 String req = AES.encrypt(request.toString(), PASSWORD);
                 if(op == 3){
-                    System.out.println(AES.decrypt(sm.read(req), PASSWORD));
+                    System.out.println(AES.decrypt(sm.opera(req), PASSWORD));
                 } else {
-                    System.out.println(AES.decrypt(sm.update(req), PASSWORD));
+                    System.out.println(AES.decrypt(sm.opera(req), PASSWORD));
                 }
 
                 System.out.println("¿Deseas continuar? \n" +

@@ -77,15 +77,12 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
                 default -> throw new UnsupportedOperationException();
             };
 
-            Logger.getLogger(SMServer.class.getName()).log(Level.INFO, "Se ha procesado una solicitud de lectura de " + getClientHost() + "\n" + this.toString());
+            Logger.getLogger(SMServer.class.getName()).log(Level.INFO, "Se ha procesado una solicitud de lectura " + "\n" + this.toString());
             resp = new Response(3, String.valueOf(num), "OK");
         } catch (UnsupportedOperationException uoEx) {
             Logger.getLogger(SMServer.class.getName()).log(Level.WARNING, "Operación no soportada.", uoEx);
             resp = new Response(-1, "false", "Operación no soportada.");
-        } catch (ServerNotActiveException svEx){
-            Logger.getLogger(SMServer.class.getName()).log(Level.WARNING, "Servidor no disponible.", svEx);
-            resp = new Response(-1, "false", "Servidor no disponible.");
-        } catch (JSONException jsEx){
+        }  catch (JSONException jsEx){
             Logger.getLogger(SMServer.class.getName()).log(Level.WARNING, "Error al procesar una soliticud de actualización.", jsEx);
             resp = new Response(-1, "false", jsEx.toString());
         }
@@ -97,6 +94,7 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
         Response resp;
         //json = AES.decrypt(json, this.PASSWORD);
         try{
+            System.out.println(json);
             JSONObject request = new JSONObject(json);
             int variable = request.getInt("var");
             int operation = request.getInt("oper");
@@ -121,15 +119,12 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
                 }
                 default -> throw new UnsupportedOperationException();
             }
-            Logger.getLogger(SMServer.class.getName()).log(Level.INFO, "Se ha procesado una solicitud de actualización de " + getClientHost() + "\n" + this.toString());
+            Logger.getLogger(SMServer.class.getName()).log(Level.INFO, "Se ha procesado una solicitud de actualización " + "\n" + this.toString());
             resp = new Response(operation, "true", "OK");
         } catch (UnsupportedOperationException uoEx) {
             Logger.getLogger(SMServer.class.getName()).log(Level.WARNING, "Operación no soportada.", uoEx);
             resp = new Response(-1, "false", "Operación no soportada.");
-        } catch (ServerNotActiveException svEx){
-            Logger.getLogger(SMServer.class.getName()).log(Level.WARNING, "Servidor no disponible.", svEx);
-            resp = new Response(-1, "false", "Servidor no disponible.");
-        } catch (JSONException jsEx){
+        }  catch (JSONException jsEx){
             Logger.getLogger(SMServer.class.getName()).log(Level.WARNING, "Error al procesar una soliticud de actualización.", jsEx);
             resp = new Response(-1, "false", jsEx.toString());
         }
@@ -169,12 +164,14 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
             registry.rebind(name, engine);
             Logger.getLogger(SMServer.class.getName()).log(Level.INFO, "El servidor se ha iniciado exitosamente.");
 
+            Lamport.initialize(3, engine);
+
             //Agregar Sockets
             //Manejador de sockets (extiende a Thread) para .start()
             ManejadorSockets_Serv servidor_Sockets = new ManejadorSockets_Serv();
             servidor_Sockets.run();
 
-            Lamport.initialize(3, engine);
+
 
         } catch (RemoteException ex) {
             Logger.getLogger(SMServer.class.getName()).log(Level.SEVERE, "Error al iniciar el servidor.", ex);

@@ -12,7 +12,7 @@ public class ManejadorSockets_Serv extends Thread{
         System.out.println("Server sockets ready");
         try {
             // server is listening on port 5056
-            ServerSocket ss = new ServerSocket(5056);
+            ServerSocket ss = new ServerSocket(5000);
 
             // running infinite loop for getting
             // client request
