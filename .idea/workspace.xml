@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="963f695b-aac9-40ec-83eb-b45c5b291bd1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ComputoDistribuido/src/server/SMServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/ComputoDistribuido/src/server/SMServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ComputoDistribuido/src/utils/Escucha_Clientes.java" beforeDir="false" afterPath="$PROJECT_DIR$/ComputoDistribuido/src/utils/Escucha_Clientes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ComputoDistribuido/src/utils/Evento_Mssg.java" beforeDir="false" afterPath="$PROJECT_DIR$/ComputoDistribuido/src/utils/Evento_Mssg.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ComputoDistribuido/src/utils/Lamport.java" beforeDir="false" afterPath="$PROJECT_DIR$/ComputoDistribuido/src/utils/Lamport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ComputoDistribuido/src/utils/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/ComputoDistribuido/src/utils/Request.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +37,40 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager" selected="Application.SMClient">
+    <configuration name="SMClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="client.SMClient" />
+      <module name="RPC2023" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SMServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="server.SMServer" />
+      <module name="RPC2023" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.SMClient" />
+        <item itemvalue="Application.SMServer" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -49,11 +80,22 @@
       <option name="presentableId" value="Default" />
       <updated>1682648536743</updated>
       <workItem from="1682648553037" duration="96000" />
-      <workItem from="1682648685306" duration="648000" />
+      <workItem from="1682648685306" duration="1762000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
