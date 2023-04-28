@@ -22,7 +22,6 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
 
     public SMServer() throws RemoteException {
         super();
-        this.diccionario = new HashMap<>();
     }
 
     @Override
@@ -58,9 +57,6 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
         }  catch (JSONException jsEx){
             Logger.getLogger(SMServer.class.getName()).log(Level.WARNING, "Error al procesar una soliticud de actualización.", jsEx);
             resp = new Response(-1, "false", jsEx.toString());
-        }   catch (NullPointerException npEx){
-            Logger.getLogger(SMServer.class.getName()).log(Level.WARNING, "Error, la variable no se encuentra en el diccionario", npEx);
-            resp = new Response(-1, "false", npEx.toString());
         }
         return AES.encrypt(resp.toString(), this.PASSWORD);
     }
