@@ -22,6 +22,7 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
 
     public SMServer() throws RemoteException {
         super();
+        this.diccionario = new HashMap<>();
     }
 
     @Override
@@ -47,6 +48,7 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
         try{
             JSONObject request = new JSONObject(json);
             String variable = request.getString("key");
+
             double num = this.diccionario.get(variable);
 
             Logger.getLogger(SMServer.class.getName()).log(Level.INFO, "Se ha procesado una solicitud de lectura " + "\n" + this.toString());
@@ -70,6 +72,7 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
             JSONObject request = new JSONObject(json);
             String variable = request.getString("key");
             double value = request.getDouble("value");
+            System.out.println(variable + " " + value);
             this.diccionario.put(variable,value);
 
             Logger.getLogger(SMServer.class.getName()).log(Level.INFO, "Se ha procesado una solicitud de actualización " + "\n" + this.toString());

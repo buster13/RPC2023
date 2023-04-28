@@ -34,6 +34,7 @@ public class Lamport {
 
     public static void aumenta_Received() throws IOException {
         msg_recieved ++;
+        System.out.println("Llegó recieved");
 
     }
 
@@ -83,9 +84,11 @@ public class Lamport {
 
                 if (evt.oper == 0) {
                     manejador.mandaRelease();
+
                     return engine.get(json.toString());
                 } else {
                     manejador.mandaRelease();
+
                     return engine.update(json.toString());
                 }
 

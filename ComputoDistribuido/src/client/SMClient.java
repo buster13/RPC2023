@@ -29,8 +29,8 @@ public class SMClient {
                 var = scan.next();
 
                 System.out.println("Elije la operación: \n" +
-                        "Put ... (0) \n" +
-                        "Get ... (1) \n" +
+                        "Get ... (0) \n" +
+                        "Put ... (1) \n" +
                         "Fast-get ... (2) \n"
                 );
                 while(!scan.hasNextInt()){
@@ -39,7 +39,7 @@ public class SMClient {
                 }
                 op= scan.nextInt();
 
-                if(op == 0){
+                if(op == 1){
                     System.out.print("Valor nuevo: " );
                     while(!scan.hasNextDouble()){
                         System.out.println("Ingresa un número válido");
@@ -54,11 +54,11 @@ public class SMClient {
                 String req = AES.encrypt(request.toString(), PASSWORD);
 
                 switch (op){
-                    case(0):{
+                    case(1):{
                         System.out.println(AES.decrypt(sm.opera(req), PASSWORD));
                         break;
                     }
-                    case(1):{
+                    case(0):{
                         System.out.println(AES.decrypt(sm.opera(req), PASSWORD));
                         break;
                     }
