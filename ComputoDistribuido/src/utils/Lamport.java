@@ -81,9 +81,9 @@ public class Lamport {
                 json.put("oper", evt.oper);
                 json.put("value", evt.val);
 
-                if (evt.oper == 3) {
+                if (evt.oper == 0) {
                     manejador.mandaRelease();
-                    return engine.read(json.toString());
+                    return engine.get(json.toString());
                 } else {
                     manejador.mandaRelease();
                     return engine.update(json.toString());
@@ -98,8 +98,8 @@ public class Lamport {
                 json.put("oper", evt.oper);
                 json.put("value", evt.val);
 
-                if (evt.oper == 3) {
-                    engine.read(json.toString());
+                if (evt.oper == 0) {
+                    engine.get(json.toString());
                 } else {
                     engine.update(json.toString());
                 }

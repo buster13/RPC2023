@@ -20,24 +20,18 @@ public class SMClient {
             Registry registry = LocateRegistry.getRegistry("localhost");
             StateMachine sm = (StateMachine) registry.lookup(name);
 
-            int var, op;
+            String var;
+            int op;
             double num = 0;
 
             while(true) {
-                System.out.println("Elije la variable: \n" +
-                        "A... (0) \n" +
-                        "B ... (1)" );
-                while(!scan.hasNextInt()){
-                    System.out.println("Ingresa un entero válido");
-                    scan.next();
-                }
-                var = scan.nextInt();
+                System.out.println("Escribe la variable: \n");
+                var = scan.next();
 
                 System.out.println("Elije la operación: \n" +
-                        "Set ... (0) \n" +
-                        "Add ... (1) \n" +
-                        "Mult ... (2) \n" +
-                        "Get ... (3)"
+                        "Put ... (0) \n" +
+                        "Get ... (1) \n" +
+                        "Fast-get ... (2) \n"
                 );
                 while(!scan.hasNextInt()){
                     System.out.println("Ingresa un entero válido");
@@ -45,26 +39,33 @@ public class SMClient {
                 }
                 op= scan.nextInt();
 
-                switch (op){
-                    case(0):
-                    case(1):
-                    case(2):{
-                        System.out.print("Valor nuevo: " );
-                        while(!scan.hasNextDouble()){
-                            System.out.println("Ingresa un número válido");
-                            scan.next();
-                        }
-                        num = scan.nextDouble();
-                        break;
+                if(op == 0){
+                    System.out.print("Valor nuevo: " );
+                    while(!scan.hasNextDouble()){
+                        System.out.println("Ingresa un número válido");
+                        scan.next();
                     }
+                    num = scan.nextDouble();
                 }
+
+
 
                 Request request = new Request(var, op, num);
                 String req = AES.encrypt(request.toString(), PASSWORD);
-                if(op == 3){
-                    System.out.println(AES.decrypt(sm.opera(req), PASSWORD));
-                } else {
-                    System.out.println(AES.decrypt(sm.opera(req), PASSWORD));
+
+                switch (op){
+                    case(0):{
+                        System.out.println(AES.decrypt(sm.opera(req), PASSWORD));
+                        break;
+                    }
+                    case(1):{
+                        System.out.println(AES.decrypt(sm.opera(req), PASSWORD));
+                        break;
+                    }
+                    case(2):{
+                        System.out.println(AES.decrypt(sm.fastGet(req), PASSWORD));
+                        break;
+                    }
                 }
 
                 System.out.println("¿Deseas continuar? \n" +
