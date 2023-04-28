@@ -15,7 +15,7 @@ public class Evento_Mssg implements Comparable<Evento_Mssg>{
     private int tiempo;
 
     public int oper;
-    public int var;
+    public String key;
     public double val;
     public float result;
 
@@ -25,12 +25,12 @@ public class Evento_Mssg implements Comparable<Evento_Mssg>{
     public boolean isProcessed;
 
 
-    public Evento_Mssg(int tipo, int id_sender, int tiempo, int oper, int var, double val){
+    public Evento_Mssg(int tipo, int id_sender, int tiempo, int oper, String key, double val){
         this.tipo = tipo;
         this.id_sender = id_sender;
 
         this.oper = oper;
-        this.var = var;
+        this.key = key;
         this.val = val;
         this.tiempo = tiempo;
     }
@@ -61,7 +61,7 @@ public class Evento_Mssg implements Comparable<Evento_Mssg>{
     public String toString(){
         JSONObject temp = new JSONObject();
 
-        temp.put("var", var);
+        temp.put("key", key);
         temp.put("oper", oper);
         temp.put("value", val);
         temp.put("sender", id_sender);

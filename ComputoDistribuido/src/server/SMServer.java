@@ -93,14 +93,14 @@ public class SMServer extends UnicastRemoteObject implements StateMachine {
         try {
             JSONObject request = new JSONObject(json);
 
-            if(request.getInt("operation") != 2) {
+            if(request.getInt("oper") != 2) {
 
-                int variable = request.getInt("var");
+                String key = request.getString("key");
                 int operation = request.getInt("oper");
                 double value = request.getDouble("value");
 
                 //Arma evento
-                Evento_Mssg evt = Lamport.arma_Evento(operation, variable, value);
+                Evento_Mssg evt = Lamport.arma_Evento(operation, key, value);
                 //Lamport agrega
                 Lamport.agrega_Evento(evt);
 

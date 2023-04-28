@@ -64,7 +64,7 @@ public class Escucha_Clientes extends Thread{
                             evt = new Evento_Mssg(1, Integer.parseInt(jsonObject.get("sender").toString()),
                                     Integer.parseInt(jsonObject.get("TS").toString()),
                                     Integer.parseInt(jsonObject.get("oper").toString()),
-                                    Integer.parseInt(jsonObject.get("var").toString()),
+                                    jsonObject.get("key").toString(),
                                     Integer.parseInt(jsonObject.get("value").toString()));
 
                             Lamport.agrega_Evento(evt);

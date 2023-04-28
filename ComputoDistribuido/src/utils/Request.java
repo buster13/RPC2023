@@ -6,9 +6,9 @@ import org.json.JSONObject;
 public class Request {
     private final JSONObject req;
 
-    public Request(String variable, int operation, double value){
+    public Request(String key, int operation, double value){
         this.req = new JSONObject();
-        this.req.put("var", variable);
+        this.req.put("key", key);
         this.req.put("oper", operation);
         this.req.put("value", value);
     }

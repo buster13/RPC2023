@@ -28,8 +28,8 @@ public class Lamport {
         manejador = new EnviaSockets();
     }
 
-    public static Evento_Mssg arma_Evento(int oper, int var, double val){
-        return new Evento_Mssg(0, id_nodo, reloj, oper, var, val);
+    public static Evento_Mssg arma_Evento(int oper, String key, double val){
+        return new Evento_Mssg(0, id_nodo, reloj, oper, key, val);
     }
 
     public static void aumenta_Received() throws IOException {
@@ -77,7 +77,7 @@ public class Lamport {
             if (evt.getTipo() == 0) {
                 JSONObject json = new JSONObject();
 
-                json.put("var", evt.var);
+                json.put("key", evt.key);
                 json.put("oper", evt.oper);
                 json.put("value", evt.val);
 
@@ -94,7 +94,7 @@ public class Lamport {
             else if (evt.getTipo() == 1) {
                 JSONObject json = new JSONObject();
 
-                json.put("var", evt.var);
+                json.put("key", evt.key);
                 json.put("oper", evt.oper);
                 json.put("value", evt.val);
 
